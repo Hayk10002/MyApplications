@@ -33,12 +33,12 @@ Button::Button(Sprite im, IntRect im_hv_text_rect, IntRect im_hl_text_rect):
 void Button::update()
 {
 	if (cl_count) cl_count--;
-	bool is_mouse_in_now = current_image_ptr->getGlobalBounds().contains(Vector2f(Mouse::getPosition(window)));
+	bool is_mouse_in_now = current_image.getGlobalBounds().contains(Vector2f(Mouse::getPosition(window)));
 	bool is_mouse_hl_now = Mouse::isButtonPressed(Mouse::Left);
-	if (!is_mouse_in && is_mouse_in_now) { on_mouse_entered(); current_image_ptr = &image_hovered; }
-	if (is_mouse_in && !is_mouse_in_now) { on_mouse_lefted(); current_image_ptr = &image;}
-	if (!is_mouse_hl && is_mouse_hl_now && is_mouse_in_now) { on_press(); current_image_ptr = &image_holded; }
-	if (is_mouse_hl && !is_mouse_hl_now && is_mouse_in_now) { on_release(); cl_count++; current_image_ptr = &image_hovered; }
+	if (!is_mouse_in && is_mouse_in_now) { on_mouse_entered(); current_image = image_hovered; }
+	if (is_mouse_in && !is_mouse_in_now) { on_mouse_lefted(); current_image = image;}
+	if (!is_mouse_hl && is_mouse_hl_now && is_mouse_in_now) { on_press(); current_image = image_holded; }
+	if (is_mouse_hl && !is_mouse_hl_now && is_mouse_in_now) { on_release(); cl_count++; current_image = image_hovered; }
 	is_mouse_hl = is_mouse_hl_now;
 	is_mouse_in = is_mouse_in_now;
 }

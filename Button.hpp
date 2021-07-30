@@ -7,7 +7,7 @@ using namespace std;
 class Button : public Drawable
 {
 	Sprite image, image_hovered, image_holded;
-	Sprite* current_image_ptr = &image;
+	Sprite current_image = image;
 	bool is_mouse_in = 0, is_mouse_hl = 0;
 	int cl_count = 0;
 public:
@@ -21,7 +21,7 @@ public:
 	
 	virtual void draw(RenderTarget& window, RenderStates states) const
 	{
-		window.draw(*current_image_ptr, states);
+		window.draw(current_image, states);
 	}
 
 };
