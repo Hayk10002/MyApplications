@@ -5,9 +5,7 @@
 #include "../../../Other/Processing.hpp"
 #include "Global.hpp"
 #include "MainMenu.hpp"
-#include "RunMenu.hpp"
 #include "AddMenu.hpp"
-#include "DeleteMenu.hpp"
 #include "DeleteConfirmMenu.hpp"
 #include "ApplListMenu.hpp"
 #include "TextBox.hpp"
@@ -20,15 +18,11 @@ int main()
 	window.setPosition(Vector2i((SCREEN_RES - WINDOW_RES) / 2u));
 	window.setFramerateLimit(60);
 	MainMenu main_menu;
-	RunMenu run_menu;
 	AddMenu add_menu;
-	Delete_Menu delete_menu;
 	DeleteConfirmMenu del_confirm_menu;
-	ApplListMenu appl_list_menu;
 
 
 	procs.add_process(main_menu, "main_menu");
-	procs.add_process(run_menu, "run_menu");
 	procs["main_menu"].run();
 	while (window.isOpen())
 	{
