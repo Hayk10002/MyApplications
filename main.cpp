@@ -12,22 +12,28 @@
 using namespace sf;
 int main()
 {
-    RenderWindow window(VideoMode(200, 200), "SFML works!");
+	MainMenuBackground.loadFromFile("MainMenu.png");
+	ButtonsTexture.loadFromFile("Buttons.png");
+	window.create(VideoMode(WINDOW_RES.x, WINDOW_RES.y), "MyApplications", Style::Close | Style::Titlebar);
+	window.setPosition(Vector2i((SCREEN_RES - WINDOW_RES) / 2u));
+	window.setFramerateLimit(60);
+	MainMenu main_menu;
+	AddMenu add_menu;
+	DeleteConfirmMenu del_confirm_menu;
 
 
 	procs.add_process(main_menu, "main_menu");
 	procs["main_menu"].run();
 	while (window.isOpen())
 	{
-        Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == Event::Closed)
-                window.close();
+		procs.add_events();
+		procs.update_procs();
+		procs.clear();
+		procs.draw();
+		procs.display();
 	}
 
-        window.clear();
-        window.display();
+	return 0;
 }
 #elif DEBUG == 1
 #include <Windows.h>
