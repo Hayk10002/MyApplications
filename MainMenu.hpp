@@ -3,6 +3,7 @@
 #include "../../../Other/Processing.hpp"
 #include "Global.hpp"
 #include "Button.hpp"
+#include "ApplListMenu.hpp"
 using namespace sf;
 class MainMenu : public Process
 {

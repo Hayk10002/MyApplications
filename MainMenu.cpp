@@ -1,21 +1,12 @@
 #include "MainMenu.hpp"
 
 MainMenu::MainMenu():
-	background(MainMenuBackground),
-	add_sprite(ButtonsTexture, IntRect(0, 100, 200, 100)),
-	del_sprite(ButtonsTexture, IntRect(0, 200, 200, 100)),
-	run_sprite(ButtonsTexture, IntRect(0, 0, 200, 100)),
-	exit_sprite(ButtonsTexture, IntRect(0, 300, 200, 100))
-	
+	background(MainMenuBackground)
 {
-	run_sprite.setPosition(400, 80);
-	add_sprite.setPosition(250, 250);
-	del_sprite.setPosition(550, 250);
-	exit_sprite.setPosition(400, 420);
-	run = Button(run_sprite);
-	add = Button(add_sprite);
-	del = Button(del_sprite);
-	exit = Button(exit_sprite);
+	add = createButton(ButtonsTexture, Vector2f(400, 80), IntRect(0, 100, 200, 100));
+	del = createButton(ButtonsTexture, Vector2f(250, 250), IntRect(0, 200, 200, 100));
+	run = createButton(ButtonsTexture, Vector2f(550, 250), IntRect(0, 0, 200, 100));
+	exit = createButton(ButtonsTexture, Vector2f(400, 420), IntRect(0, 300, 200, 100));
 }
 
 void MainMenu::on_run()

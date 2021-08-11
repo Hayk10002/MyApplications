@@ -26,3 +26,7 @@ public:
 
 };
 
+
+Button createButton(Texture& texture, Vector2f position, IntRect texture_rect_def, IntRect texture_rect_hov, IntRect texture_rect_hol);
+Button createButton(Texture& texture, Vector2f position, IntRect texture_rect_def);
+

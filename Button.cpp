@@ -48,4 +48,16 @@ bool Button::is_clicked()
 	return cl_count;
 }
 
+Button createButton(Texture& texture, Vector2f position, IntRect texture_rect_def, IntRect texture_rect_hov, IntRect texture_rect_hol)
+{
+	Sprite def(texture, texture_rect_def);
+	def.setPosition(position);
+	return Button(def, texture_rect_hov, texture_rect_hol);
+}
 
+Button createButton(Texture& texture, Vector2f position, IntRect texture_rect_def)
+{
+	Sprite def(texture, texture_rect_def);
+	def.setPosition(position);
+	return Button(def);
+}
