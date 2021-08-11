@@ -35,7 +35,8 @@ int main()
 
 	return 0;
 }
-#elif DEBUG == 1
+
+#elif DEBUG == 2
 #include <Windows.h>
 #include <iostream>
 using namespace std;
