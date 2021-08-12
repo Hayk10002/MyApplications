@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <deque>
 #include "Application.hpp"
 #include "TextBox.hpp"
 using namespace sf;

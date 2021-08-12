@@ -1,4 +1,4 @@
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG == 0
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
@@ -35,7 +35,26 @@ int main()
 
 	return 0;
 }
-
+#elif DEBUG == 1
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Global.hpp"
+using namespace std;
+using namespace sf;
+int main()
+{
+	window.create(VideoMode(WINDOW_RES.x, WINDOW_RES.y), "MyApplications", Style::Close | Style::Titlebar);
+	while(window.isOpen())
+	{
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed) window.close();
+		}
+		window.clear();
+		window.display();
+	}
+}
 #elif DEBUG == 2
 #include <Windows.h>
 #include <iostream>
