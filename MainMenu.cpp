@@ -52,10 +52,10 @@ void MainMenu::loop()
 	}
 	
 
-	run.update();
-	add.update();
-	del.update();
-	exit.update();
+	//run.update();
+	//add.update();
+	//del.update();
+	//exit.update();
 	this_proc_ptr->clear();
 	this_proc_ptr->draw(background);
 	this_proc_ptr->draw(run);

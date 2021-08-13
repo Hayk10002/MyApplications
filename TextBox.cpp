@@ -19,30 +19,53 @@ TextBox::TextBox(Sprite im, Sprite im_sel):
 
 TextBox::TextBox(Sprite im, bool is_same_image):
 	background(im),
-	background_sel(*background.getTexture(), IntRect(background.getTextureRect().left + !is_same_image * background.getTextureRect().width, background.getTextureRect().top, background.getTextureRect().width, background.getTextureRect().height))
+	background_sel(im)
 {
+	IntRect im_text_rect = im.getTextureRect();
+	background_sel.setTextureRect(IntRect(im_text_rect.left + !is_same_image * im_text_rect.width, im_text_rect.top, im_text_rect.width, im_text_rect.height));
 	init_text();
 }
 
 TextBox::TextBox(Sprite im, IntRect im_sel):
 	background(im),
-	background_sel(*background.getTexture(), im_sel)
+	background_sel(im)
 {
+	background_sel.setTextureRect(im_sel);
 	init_text();
 }
 
 void TextBox::select()
 {
-	is_selected = 1;
+	is_sel = 1;
 }
 
 void TextBox::unselect()
 {
-	is_selected = 0;
+	is_sel = 0;
 }
 
-void TextBox::proceed_char(char ch)
+bool TextBox::update(Event event)
 {
+	bool ret = 0;
+	if (event.type == Event::MouseButtonReleased)
+	{
+		if (event.mouseButton.button == Mouse::Left)
+		{
+			if (!is_selected() && get_bounds().contains(event.mouseButton.x, event.mouseButton.y)) 
+			{
+				select();
+				ret = 1; 
+			}
+			else
+			{
+				unselect();
+				ret = get_bounds().contains(event.mouseButton.x, event.mouseButton.y);
+			}
+		}
+	}
+	else if (event.type == Event::MouseButtonPressed) ret = get_bounds().contains(event.mouseButton.x, event.mouseButton.y);
+	else if(event.type == Event::MouseMoved) ret = get_bounds().contains(event.mouseMove.x, event.mouseMove.y);
+	return ret;
 }
 
 void TextBox::set_text_color(Color col)
@@ -78,6 +101,16 @@ Color TextBox::get_text_color()
 string TextBox::get_text()
 {
 	return text.getString();
+}
+
+FloatRect TextBox::get_bounds()
+{
+	return is_selected() ? background.getGlobalBounds() : background_sel.getGlobalBounds();
+}
+
+bool TextBox::is_selected()
+{
+	return is_sel;
 }
 
 TextBox createTextBox(Texture& texture, Vector2f position, IntRect texture_rect_def, IntRect texture_rect_selected)

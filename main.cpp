@@ -41,23 +41,33 @@ int main()
 #include <iostream>
 #include "Global.hpp"
 #include "TextBox.hpp"
+#include "Button.hpp"
 using namespace std;
 using namespace sf;
 int main()
 {
+	ButtonsTexture.loadFromFile("Buttons.png");
 	TextBoxesTexture.loadFromFile("TextBoxes.png");
-	TextBox textbox = createTextBox(TextBoxesTexture, Vector2f(0, 0), IntRect(0, 0, 200, 30));
-	textbox.select();
+	TextBox textbox = createTextBox(TextBoxesTexture, Vector2f(100, 0), IntRect(0, 0, 200, 30));
+	Button button = createButton(ButtonsTexture, { 0, 0 }, { 0, 0, 200, 100 });
+	button.on_mouse_entered = []() { cout << "Entered" << endl; };
+	button.on_mouse_lefted = []() { cout << "Lefted" << endl; };
+	button.on_press = []() { cout << "Pressed" << endl; };
+	button.on_release = []() { cout << "Released" << endl; };
 	window.create(VideoMode(WINDOW_RES.x, WINDOW_RES.y), "MyApplications", Style::Close | Style::Titlebar);
 	while(window.isOpen())
 	{
 		Event event;
 		while (window.pollEvent(event))
 		{
+			button.update(event);
+			textbox.update(event);
 			if (event.type == Event::Closed) window.close();
+			
 		}
 		window.clear();
 		window.draw(textbox);
+		window.draw(button);
 		window.display();
 	}
 }

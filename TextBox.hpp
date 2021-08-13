@@ -7,7 +7,7 @@ using namespace sf;
 class TextBox : public Drawable
 {
 	int dif = 0;
-	bool is_selected = 0;
+	bool is_sel = 0;
 	Text text;
 	Font font;
 	Sprite background, background_sel;
@@ -19,7 +19,7 @@ public:
 	TextBox(Sprite im, IntRect im_sel);
 	void select();
 	void unselect();
-	void proceed_char(char ch);
+	bool update(Event event);
 	void set_text_color(Color col);
 	void set_text(string text);
 	bool set_font(string font_file);
@@ -27,9 +27,11 @@ public:
 	Font get_font();
 	Color get_text_color();
 	string get_text();
+	FloatRect get_bounds();
+	bool is_selected();
 	virtual void draw(RenderTarget& target, RenderStates states) const
 	{
-		if (is_selected) target.draw(background_sel, states);
+		if (is_sel) target.draw(background_sel, states);
 		else target.draw(background, states);
 		target.draw(text, states);
 	}
