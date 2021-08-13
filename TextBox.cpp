@@ -19,7 +19,7 @@ TextBox::TextBox(Sprite im, Sprite im_sel):
 
 TextBox::TextBox(Sprite im, bool is_same_image):
 	background(im),
-	background_sel(*background.getTexture(), IntRect(background.getTextureRect().left + is_same_image * background.getTextureRect().width, background.getTextureRect().top, background.getTextureRect().width, background.getTextureRect().height))
+	background_sel(*background.getTexture(), IntRect(background.getTextureRect().left + !is_same_image * background.getTextureRect().width, background.getTextureRect().top, background.getTextureRect().width, background.getTextureRect().height))
 {
 	init_text();
 }

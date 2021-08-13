@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable : 4996)
 #include <SFML/Graphics.hpp>
 #include <string>
 using namespace std;

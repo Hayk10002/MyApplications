@@ -7,4 +7,4 @@ using namespace std;
 extern const Vector2u WINDOW_RES, SCREEN_RES;
 extern RenderWindow window;
 extern Procs procs;
-extern Texture MainMenuBackground, ButtonsTexture;
+extern Texture MainMenuBackground, ButtonsTexture, TextBoxesTexture;

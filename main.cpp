@@ -1,3 +1,4 @@
+
 #define DEBUG 1
 #if DEBUG == 0
 #include <SFML/Graphics.hpp>
@@ -39,10 +40,14 @@ int main()
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Global.hpp"
+#include "TextBox.hpp"
 using namespace std;
 using namespace sf;
 int main()
 {
+	TextBoxesTexture.loadFromFile("TextBoxes.png");
+	TextBox textbox = createTextBox(TextBoxesTexture, Vector2f(0, 0), IntRect(0, 0, 200, 30));
+	textbox.select();
 	window.create(VideoMode(WINDOW_RES.x, WINDOW_RES.y), "MyApplications", Style::Close | Style::Titlebar);
 	while(window.isOpen())
 	{
@@ -52,6 +57,7 @@ int main()
 			if (event.type == Event::Closed) window.close();
 		}
 		window.clear();
+		window.draw(textbox);
 		window.display();
 	}
 }
