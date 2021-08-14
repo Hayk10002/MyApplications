@@ -1,4 +1,3 @@
-
 #define DEBUG 1
 #if DEBUG == 0
 #include <SFML/Graphics.hpp>
@@ -48,26 +47,20 @@ int main()
 {
 	ButtonsTexture.loadFromFile("Buttons.png");
 	TextBoxesTexture.loadFromFile("TextBoxes.png");
-	TextBox textbox = createTextBox(TextBoxesTexture, Vector2f(100, 0), IntRect(0, 0, 200, 30));
-	Button button = createButton(ButtonsTexture, { 0, 0 }, { 0, 0, 200, 100 });
-	button.on_mouse_entered = []() { cout << "Entered" << endl; };
-	button.on_mouse_lefted = []() { cout << "Lefted" << endl; };
-	button.on_press = []() { cout << "Pressed" << endl; };
-	button.on_release = []() { cout << "Released" << endl; };
+	TextBox textbox = createTextBox(TextBoxesTexture, Vector2f(0, 0), IntRect(0, 0, 200, 30));
+	textbox.set_font("arial.ttf");
 	window.create(VideoMode(WINDOW_RES.x, WINDOW_RES.y), "MyApplications", Style::Close | Style::Titlebar);
 	while(window.isOpen())
 	{
 		Event event;
 		while (window.pollEvent(event))
 		{
-			button.update(event);
 			textbox.update(event);
 			if (event.type == Event::Closed) window.close();
 			
 		}
 		window.clear();
 		window.draw(textbox);
-		window.draw(button);
 		window.display();
 	}
 }
@@ -97,5 +90,31 @@ int main()
 	cout << filename << endl;
 	system("pause");
 	return 0;
+}
+#elif DEBUG == 3
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Global.hpp"
+using namespace std;
+using namespace sf;
+int main()
+{
+	string text;
+	window.create(VideoMode(WINDOW_RES.x, WINDOW_RES.y), "MyApplications", Style::Close | Style::Titlebar);
+	while (window.isOpen())
+	{
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed) window.close();
+			if (event.type == Event::TextEntered)
+			{
+				text += event.text.unicode;
+				cout << event.text.unicode << endl;
+			}
+		}
+		window.clear();
+		window.display();
+	}
 }
 #endif

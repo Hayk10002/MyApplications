@@ -8,11 +8,14 @@ class TextBox : public Drawable
 {
 	int dif = 0;
 	bool is_sel = 0;
-	Text text;
+	Text drawing_text;
+	string text = "";
 	Font font;
 	Sprite background, background_sel;
-	void init_text();
-
+	void init_drawing_text();
+	void update_drawing_text();
+	void proceed_char(char ch);
+	void procees_backspace();
 public:
 	TextBox(Sprite im, Sprite im_sel);
 	TextBox(Sprite im, bool is_same_image = 0);
@@ -33,7 +36,7 @@ public:
 	{
 		if (is_sel) target.draw(background_sel, states);
 		else target.draw(background, states);
-		target.draw(text, states);
+		target.draw(drawing_text, states);
 	}
 };
 
