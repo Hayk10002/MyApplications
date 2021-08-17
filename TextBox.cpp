@@ -4,14 +4,18 @@
 #define ENTER 13
 #define ESC 27
 
-void TextBox::init_drawing_text()
+void TextBox::init()
 {
 	dif = 5;
 	drawing_text.setCharacterSize(background.getLocalBounds().height - 2 * dif);
 	drawing_text.setColor(Color::Black);
 	drawing_text.setFont(font);
-	drawing_text.setPosition(background.getLocalBounds().left + dif, background.getLocalBounds().top + dif / 2);
 	drawing_text.setString("");
+	drawing_text.setPosition(get_bounds().left + dif, get_bounds().top + dif / 2);
+
+	cursor.setFillColor(Color::Black);
+	cursor.setPosition(get_cursor_pos());
+	cursor.setSize(Vector2f(2, drawing_text.getCharacterSize()));
 }
 
 void TextBox::update_drawing_text()
@@ -28,6 +32,7 @@ void TextBox::update_drawing_text()
 		}
 		drawing_text.setPosition(Vector2f(get_bounds().left + get_bounds().width - drawing_text.getGlobalBounds().width - dif, get_bounds().top + dif / 2));
 	}
+	else drawing_text.setPosition(get_bounds().left + dif, get_bounds().top + dif / 2);
 }
 
 void TextBox::proceed_char(char ch)
@@ -36,17 +41,22 @@ void TextBox::proceed_char(char ch)
 	update_drawing_text();
 }
 
-void TextBox::procees_backspace()
+void TextBox::proceed_backspace()
 {
 	if(!text.empty())text.erase(text.size() - 1);
 	update_drawing_text();
+}
+
+Vector2f TextBox::get_cursor_pos()
+{
+	return Vector2f(drawing_text.getGlobalBounds().left + drawing_text.getGlobalBounds().width, get_bounds().top + dif);
 }
 
 TextBox::TextBox(Sprite im, Sprite im_sel):
 	background(im),
 	background_sel(im_sel)
 {
-	init_drawing_text();
+	init();
 }
 
 TextBox::TextBox(Sprite im, bool is_same_image):
@@ -55,7 +65,7 @@ TextBox::TextBox(Sprite im, bool is_same_image):
 {
 	IntRect im_text_rect = im.getTextureRect();
 	background_sel.setTextureRect(IntRect(im_text_rect.left + !is_same_image * im_text_rect.width, im_text_rect.top, im_text_rect.width, im_text_rect.height));
-	init_drawing_text();
+	init();
 }
 
 TextBox::TextBox(Sprite im, IntRect im_sel):
@@ -63,7 +73,7 @@ TextBox::TextBox(Sprite im, IntRect im_sel):
 	background_sel(im)
 {
 	background_sel.setTextureRect(im_sel);
-	init_drawing_text();
+	init();
 }
 
 void TextBox::select()
@@ -113,7 +123,7 @@ bool TextBox::update(Event event)
 			case BACKSPACE:
 				ret = 1;
 				//drawing_text.setString(drawing_text.getString().substring(0, drawing_text.getString().getSize() - 1));
-				procees_backspace();
+				proceed_backspace();
 				break;
 			default:
 				ret = 1;
@@ -123,6 +133,7 @@ bool TextBox::update(Event event)
 			}
 		}
 	}
+	cursor.setPosition(get_cursor_pos());
 	return ret;
 }
 

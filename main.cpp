@@ -1,4 +1,4 @@
-#define DEBUG 1
+#define DEBUG 3
 #if DEBUG == 0
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
@@ -94,27 +94,21 @@ int main()
 #elif DEBUG == 3
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <fstream>
 #include "Global.hpp"
+#include "ApplListMenu.hpp"
 using namespace std;
 using namespace sf;
+
 int main()
 {
-	string text;
-	window.create(VideoMode(WINDOW_RES.x, WINDOW_RES.y), "MyApplications", Style::Close | Style::Titlebar);
-	while (window.isOpen())
-	{
-		Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == Event::Closed) window.close();
-			if (event.type == Event::TextEntered)
-			{
-				text += event.text.unicode;
-				cout << event.text.unicode << endl;
-			}
-		}
-		window.clear();
-		window.display();
-	}
+	ApplListMenu appls1("output.txt"), appls2("output.txt");
+	appls1.all_applications = { Application("Hello", "World", 1), Application("GoodBye", "World") };
+	appls1.save_data_to_file();
+	appls2.get_data_from_file();
+
+
+	system("pause");
+	return 0;
 }
 #endif

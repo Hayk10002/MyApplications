@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
+#include <ctime>
 #include "../../../Other/Processing.hpp"
 using namespace sf;
 using namespace std;

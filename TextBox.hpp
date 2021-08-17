@@ -12,10 +12,12 @@ class TextBox : public Drawable
 	string text = "";
 	Font font;
 	Sprite background, background_sel;
-	void init_drawing_text();
+	RectangleShape cursor;
+	void init();
 	void update_drawing_text();
 	void proceed_char(char ch);
-	void procees_backspace();
+	void proceed_backspace();
+	Vector2f get_cursor_pos();
 public:
 	TextBox(Sprite im, Sprite im_sel);
 	TextBox(Sprite im, bool is_same_image = 0);
@@ -37,6 +39,7 @@ public:
 		if (is_sel) target.draw(background_sel, states);
 		else target.draw(background, states);
 		target.draw(drawing_text, states);
+		if (is_sel) target.draw(cursor, states);
 	}
 };
 
