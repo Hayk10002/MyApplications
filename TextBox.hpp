@@ -1,40 +1,41 @@
 #pragma once
 #pragma warning(disable : 4996)
+
 #include <SFML/Graphics.hpp>
 #include <string>
-using namespace std;
-using namespace sf;
-class TextBox : public Drawable
+
+class TextBox : public sf::Drawable
 {
-	int dif = 0;
+	float dif = 0.f;
 	bool is_sel = 0;
-	Text drawing_text;
-	string text = "";
-	Font font;
-	Sprite background, background_sel;
-	RectangleShape cursor;
+	sf::Text drawing_text;
+	std::string text = "";
+	sf::Font font;
+	sf::Sprite background, background_sel;
+	sf::RectangleShape cursor;
+	size_t cursor_index = 0;
 	void init();
 	void update_drawing_text();
 	void proceed_char(char ch);
 	void proceed_backspace();
-	Vector2f get_cursor_pos();
+	sf::Vector2f get_cursor_pos();
 public:
-	TextBox(Sprite im, Sprite im_sel);
-	TextBox(Sprite im, bool is_same_image = 0);
-	TextBox(Sprite im, IntRect im_sel);
+	TextBox(sf::Sprite im, sf::Sprite im_sel);
+	TextBox(sf::Sprite im, bool is_same_image = 0);
+	TextBox(sf::Sprite im, sf::IntRect im_sel);
 	void select();
 	void unselect();
-	bool update(Event event);
-	void set_text_color(Color col);
-	void set_text(string text);
-	bool set_font(string font_file);
-	void set_font(Font font);
-	Font get_font();
-	Color get_text_color();
-	string get_text();
-	FloatRect get_bounds();
+	bool update(sf::Event event);
+	void set_text_color(sf::Color col);
+	void set_text(std::string text);
+	bool set_font(std::string font_file);
+	void set_font(sf::Font font);
+	sf::Font get_font();
+	sf::Color get_text_color();
+	std::string get_text();
+	sf::FloatRect get_bounds();
 	bool is_selected();
-	virtual void draw(RenderTarget& target, RenderStates states) const
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		if (is_sel) target.draw(background_sel, states);
 		else target.draw(background, states);
@@ -44,5 +45,5 @@ public:
 };
 
 
-TextBox createTextBox(Texture& texture, Vector2f position, IntRect texture_rect_def, IntRect texture_rect_selected);
-TextBox createTextBox(Texture& texture, Vector2f position, IntRect texture_rect_def);
+TextBox createTextBox(sf::Texture& texture, sf::Vector2f position, sf::IntRect texture_rect_def, sf::IntRect texture_rect_selected);
+TextBox createTextBox(sf::Texture& texture, sf::Vector2f position, sf::IntRect texture_rect_def);

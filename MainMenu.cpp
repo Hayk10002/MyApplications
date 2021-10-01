@@ -1,5 +1,7 @@
 #include "MainMenu.hpp"
 
+using namespace sf;
+
 MainMenu::MainMenu():
 	background(MainMenuBackground)
 {

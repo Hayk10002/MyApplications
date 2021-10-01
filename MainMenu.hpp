@@ -4,10 +4,10 @@
 #include "Global.hpp"
 #include "Button.hpp"
 #include "ApplListMenu.hpp"
-using namespace sf;
+
 class MainMenu : public Process
 {
-	Sprite background, add_sprite, del_sprite, run_sprite, exit_sprite;
+	sf::Sprite background, add_sprite, del_sprite, run_sprite, exit_sprite;
 	Proc* this_proc_ptr;
 	
 public:

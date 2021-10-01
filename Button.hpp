@@ -2,22 +2,21 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include "Global.hpp"
-using namespace sf;
-using namespace std;
-class Button : public Drawable
+
+class Button : public sf::Drawable
 {
-	Sprite image, image_hovered, image_holded;
-	Sprite current_image = image;
+	sf::Sprite image, image_hovered, image_holded;
+	sf::Sprite current_image = image;
 	bool is_mouse_in = 0;
 public:
-	function<void(void)> on_press = []() {}, on_release = []() {}, on_mouse_entered = []() {}, on_mouse_lefted = []() {};
+	std::function<void(void)> on_press = []() {}, on_release = []() {}, on_mouse_entered = []() {}, on_mouse_lefted = []() {};
 	Button() {}
-	Button(Sprite im, Sprite im_hv, Sprite im_hl);
-	Button(Sprite im, bool is_same_image = 0);
-	Button(Sprite im, IntRect im_hv_text_rect, IntRect im_hl_text_rect);
-	bool update(Event event);
+	Button(sf::Sprite im, sf::Sprite im_hv, sf::Sprite im_hl);
+	Button(sf::Sprite im, bool is_same_image = 0);
+	Button(sf::Sprite im, sf::IntRect im_hv_text_rect, sf::IntRect im_hl_text_rect);
+	bool update(sf::Event event);
 	
-	virtual void draw(RenderTarget& window, RenderStates states) const
+	virtual void draw(sf::RenderTarget& window, sf::RenderStates states) const
 	{
 		window.draw(current_image, states);
 	}
@@ -25,6 +24,6 @@ public:
 };
 
 
-Button createButton(Texture& texture, Vector2f position, IntRect texture_rect_def, IntRect texture_rect_hov, IntRect texture_rect_hol);
-Button createButton(Texture& texture, Vector2f position, IntRect texture_rect_def);
+Button createButton(sf::Texture& texture, sf::Vector2f position, sf::IntRect texture_rect_def, sf::IntRect texture_rect_hov, sf::IntRect texture_rect_hol);
+Button createButton(sf::Texture& texture, sf::Vector2f position, sf::IntRect texture_rect_def);
 

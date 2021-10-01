@@ -1,5 +1,7 @@
 #include "Button.hpp"
 
+using namespace sf;
+using namespace std;
 
 Button::Button(Sprite im, Sprite im_hv, Sprite im_hl):
 	image(im),
@@ -30,20 +32,12 @@ Button::Button(Sprite im, IntRect im_hv_text_rect, IntRect im_hl_text_rect):
 
 bool Button::update(Event event)
 {
-	/*bool is_mouse_in_now = current_image.getGlobalBounds().contains(Vector2f(Mouse::getPosition(window)));
-	bool is_mouse_hl_now = Mouse::isButtonPressed(Mouse::Left);
-	if (!is_mouse_in && is_mouse_in_now) { on_mouse_entered(); current_image = image_hovered; }
-	if (is_mouse_in && !is_mouse_in_now) { on_mouse_lefted(); current_image = image;}
-	if (!is_mouse_hl && is_mouse_hl_now && is_mouse_in_now) { on_press(); current_image = image_holded; }
-	if (is_mouse_hl && !is_mouse_hl_now && is_mouse_in_now) { on_release(); is_cl = 1; current_image = image_hovered; }
-	is_mouse_hl = is_mouse_hl_now;
-	is_mouse_in = is_mouse_in_now;*/
-	bool ret = 0;
+	bool is_event_used = 0;
 	if (event.type == Event::MouseMoved)
 	{
-		Vector2f mouse_pos = Vector2f(event.mouseMove.x, event.mouseMove.y);
+		Vector2f mouse_pos = Vector2f(Vector2i(event.mouseMove.x, event.mouseMove.y));
 		bool is_mouse_in_now = current_image.getGlobalBounds().contains(mouse_pos);
-		ret = is_mouse_in_now;
+		is_event_used = is_mouse_in_now;
 		if (!is_mouse_in && is_mouse_in_now) { on_mouse_entered(); current_image = image_hovered; }
 		if (is_mouse_in && !is_mouse_in_now) { on_mouse_lefted(); current_image = image; }
 		is_mouse_in = is_mouse_in_now;
@@ -52,23 +46,23 @@ bool Button::update(Event event)
 	{
 		if (is_mouse_in)
 		{
-			ret = 1;
+			is_event_used = 1;
 			on_press(); 
 			current_image = image_holded;
 		}
-		else ret = 0;
+		else is_event_used = 0;
 	}
 	else if (event.type == Event::MouseButtonReleased)
 	{
 		if (is_mouse_in)
 		{
-			ret = 1;
+			is_event_used = 1;
 			on_release();
 			current_image = image_hovered;
 		}
-		else ret = 0;
+		else is_event_used = 0;
 	}
-	return ret;
+	return is_event_used;
 }
 
 Button createButton(Texture& texture, Vector2f position, IntRect texture_rect_def, IntRect texture_rect_hov, IntRect texture_rect_hol)

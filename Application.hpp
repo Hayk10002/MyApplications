@@ -1,24 +1,24 @@
 #pragma once
 #include <string>
-using namespace std;
+#include "../../../Other/json.hpp"
+#include "Global.hpp"
+
 class Application
 {
-	string name, address;
-	bool is_r = 0, enabled_multirun;
-	static string add_cipher(string s, unsigned char k);
-	static string char_p_to_str(char* p, int l);
+	std::string name, address;
+	bool is_r = 0, multirun;
+	void set_multirun(bool em);
 public:
-	Application(string name = "", string address = "", bool is_multirun_enabled = 0);
+	Application(std::string name = "", std::string address = "", bool is_multirun_enabled = 0);
 	bool run();
 	bool is_running();
 	bool is_multirun_enabled();
 	void enable_multirun();
 	void disable_multirun();
-	void set_data(string data);
-	void set_data(char* data, int len);
-	string get_data();
-	void set_name(string name);
-	string get_name();
-	void set_address(string address);
-	string get_address();
+	void set_data(nlohmann::json& data);
+	void get_data(nlohmann::json& data);
+	void set_name(std::string name);
+	std::string get_name();
+	void set_address(std::string address);
+	std::string get_address();
 };

@@ -1,5 +1,9 @@
 #include "ApplListMenu.hpp"
 
+using namespace sf;
+using namespace std;
+using namespace nlohmann;
+
 ApplListMenu::ApplListMenu(string data_file_name) :
 	data_file_name(data_file_name),
 	search_text_box(Sprite())
@@ -8,12 +12,15 @@ ApplListMenu::ApplListMenu(string data_file_name) :
 
 void ApplListMenu::save_data_to_file()
 {
+	json appl_data = {};
 	ofstream file(data_file_name);
 	for (auto appl : all_applications)
 	{
-		string data = appl.get_data();
-		file.write(data.c_str(), data.size());
+		json data;
+		appl.get_data(data);
+		appl_data.push_back(data);
 	}
+	file << appl_data;
 }
 
 void ApplListMenu::get_data_from_file()
@@ -25,22 +32,13 @@ void ApplListMenu::get_data_from_file()
 		cout << "Can't open the file " << data_file_name;
 		abort();
 	}
-	file.seekg(0, ios::beg);
-	while (1)
+	json appl_data = {};
+	file >> appl_data;
+	for (int i = 0; !appl_data[i].empty(); i++)
 	{
-		char key, ns[2], as[2];
-		file.read(&key, 1);
-		if (file.tellg() == -1) break;
-		file.read(ns, 2);
-		file.read(as, 2);
-		int len = 6 + (unsigned char)ns[0] * 256 + (unsigned char)ns[1] + (unsigned char)as[0] * 256 + (unsigned char)as[1];
-		char* data = new char[len];
-		file.seekg(-5, ios::cur);
-		file.read(data, len);
 		Application appl;
-		appl.set_data(data, len);
+		appl.set_data(appl_data[i]);
 		all_applications.push_back(appl);
-		delete[] data;
 	}
 
 }

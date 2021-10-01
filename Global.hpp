@@ -3,9 +3,14 @@
 #include <Windows.h>
 #include <ctime>
 #include "../../../Other/Processing.hpp"
-using namespace sf;
-using namespace std;
-extern const Vector2u WINDOW_RES, SCREEN_RES;
-extern RenderWindow window;
+
+extern const sf::Vector2u WINDOW_RES, SCREEN_RES;
+extern sf::RenderWindow window;
 extern Procs procs;
-extern Texture MainMenuBackground, ButtonsTexture, TextBoxesTexture;
+extern sf::Texture MainMenuBackground, ButtonsTexture, TextBoxesTexture;
+std::string add_caesar_cipher(std::string s, unsigned char k);
+
+
+
+
+

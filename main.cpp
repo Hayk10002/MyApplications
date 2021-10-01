@@ -1,4 +1,4 @@
-#define DEBUG 3
+#define DEBUG 1
 #if DEBUG == 0
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
@@ -103,10 +103,12 @@ using namespace sf;
 int main()
 {
 	ApplListMenu appls1("output.txt"), appls2("output.txt");
-	appls1.all_applications = { Application("Hello", "World", 1), Application("GoodBye", "World") };
+	appls1.all_applications = { Application("1", "2", 1), Application("4", "Hellosfsdfds", 0)};
 	appls1.save_data_to_file();
 	appls2.get_data_from_file();
-
+	
+	
+	
 
 	system("pause");
 	return 0;
